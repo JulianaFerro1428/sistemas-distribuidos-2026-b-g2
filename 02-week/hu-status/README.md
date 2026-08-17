@@ -5,8 +5,8 @@
 # Weekly Status - Week 02
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME:
-- GITHUB_USER:
+- FULL_NAME: Maria Juliana Ferro Bonilla
+- GITHUB_USER: JulianaFerro1428
 - TEAM:
 - SPRINT_GOAL:
 <!-- CONFIG-END -->

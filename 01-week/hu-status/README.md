@@ -5,9 +5,9 @@
 # Weekly Status - Week 01
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME:
-- GITHUB_USER:
-- TEAM:
+- FULL_NAME: Maria Juliana Ferro Bonilla
+- GITHUB_USER: JulianaFerro1428
+- TEAM: Telemedicina
 - SPRINT_GOAL:
 <!-- CONFIG-END -->
 
