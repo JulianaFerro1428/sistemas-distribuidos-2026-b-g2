@@ -72,7 +72,6 @@ Kanban es un método de gestión visual que busca optimizar el **flujo de trabaj
 5. Evitar iniciar nuevas tareas cuando existe exceso de trabajo en progreso.
 6. Medir el flujo de trabajo para identificar problemas.
 7. Buscar mejoras continuas en el proceso.
-8. Mantener las políticas de trabajo claras para todo el equipo.
 
 ## Comparación entre Scrum y Kanban
 
@@ -117,7 +116,6 @@ Independientemente de la metodología utilizada, se recomienda:
 * Medir el desempeño del proceso.
 * Revisar periódicamente la forma de trabajo.
 * Promover la mejora continua.
-* Mantener transparencia sobre el estado del proyecto.
 
 ## Conclusión
 
