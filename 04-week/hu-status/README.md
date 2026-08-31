@@ -17,11 +17,15 @@
 
 <!-- CONFIG-END -->
 
-
 ## 1. User stories worked this week
+
 | HU ID | Title | Status (todo/doing/done) | Evidence (PR or commit URL) |
 |---|---|---|---|
-| HU-XXX-001 |  |  |  |
+| HU-001 | Patient Registration | done | https://github.com/JulianaFerro1428/telemed-ai.git |
+| HU-002 | Login and Logout | done | https://github.com/JulianaFerro1428/telemed-ai.git |
+| HU-003 | Password Recovery | done | https://github.com/JulianaFerro1428/telemed-ai.git |
+| HU-004 | Profile Management | done | https://github.com/JulianaFerro1428/telemed-ai.git |
+| HU-005 | User and Professional Management | done | https://github.com/JulianaFerro1428/telemed-ai.git |
 
 ## 2. My individual contribution
 
