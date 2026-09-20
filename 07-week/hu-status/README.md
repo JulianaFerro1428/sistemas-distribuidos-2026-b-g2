@@ -76,3 +76,6 @@
 
 - Additional frontend and agent interaction improvements:  
   https://github.com/JulianaFerro1428/telemed-ai/commit/cb500536c0f76939a5847ea34cb08f8855b55ca9
+
+- Microservices service catalog definition and documentation:
+  https://github.com/code-corhuila/telemed-ia-docs/commit/f82929b83b04c483a1c581bcad480bfaf161ed3f
