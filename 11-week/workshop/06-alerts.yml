@@ -1,0 +1,44 @@
+groups:
+  - name: intelligent-agent-api-availability-slo
+    rules:
+      # SLO: 99.0 % availability over 30 days -> error budget = 0.01
+      - record: agent:error_ratio:rate5m
+        expr: sum(rate(agent_requests_total{outcome="error"}[5m])) / sum(rate(agent_requests_total[5m]))
+      - record: agent:error_ratio:rate30m
+        expr: sum(rate(agent_requests_total{outcome="error"}[30m])) / sum(rate(agent_requests_total[30m]))
+      - record: agent:error_ratio:rate1h
+        expr: sum(rate(agent_requests_total{outcome="error"}[1h])) / sum(rate(agent_requests_total[1h]))
+      - record: agent:error_ratio:rate6h
+        expr: sum(rate(agent_requests_total{outcome="error"}[6h])) / sum(rate(agent_requests_total[6h]))
+
+      - alert: AgentAvailabilityFastBurn
+        expr: |
+          agent:error_ratio:rate1h > (14.4 * 0.01)
+          and
+          agent:error_ratio:rate5m > (14.4 * 0.01)
+        for: 5m
+        labels:
+          severity: page
+          team: telemed-ia-group-2
+          service: intelligent-agent-api
+          slo: availability
+        annotations:
+          summary: "intelligent-agent-api is burning the availability error budget 14.4x too fast (2 % of the 30-day budget in 1 hour)"
+          description: "More than 14.4 % of /api/v1/agent requests failed with 5xx in the last hour and in the last 5 minutes."
+          runbook_url: "https://github.com/JulianaFerro1428/sistemas-distribuidos-2026-b-g2/blob/main/11-week/workshop/07-runbook.md"
+
+      - alert: AgentAvailabilitySlowBurn
+        expr: |
+          agent:error_ratio:rate6h > (6 * 0.01)
+          and
+          agent:error_ratio:rate30m > (6 * 0.01)
+        for: 30m
+        labels:
+          severity: ticket
+          team: telemed-ia-group-2
+          service: intelligent-agent-api
+          slo: availability
+        annotations:
+          summary: "intelligent-agent-api is burning the availability error budget 6x too fast (5 % of the 30-day budget in 6 hours)"
+          description: "More than 6 % of /api/v1/agent requests failed with 5xx in the last 6 hours and in the last 30 minutes."
+          runbook_url: "https://github.com/JulianaFerro1428/sistemas-distribuidos-2026-b-g2/blob/main/11-week/workshop/07-runbook.md"
