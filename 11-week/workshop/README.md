@@ -6,5 +6,5 @@
 - TEAM: Group 2 (telemed-ia)
 - DOCS_REPO: https://github.com/code-corhuila/telemed-ia-docs
 - REFLECTION_DOC: https://docs.google.com/document/d/1guo47V1AZtQIhDh0UpW01f9Fu8aO2bcxPP074sBq6sM/edit?usp=sharing
-- JOURNEY: (written in CP1)
+- JOURNEY: Patient completes an AI pre-consultation (HU-06)
 <!-- CONFIG-END -->
