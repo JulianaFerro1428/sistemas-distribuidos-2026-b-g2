@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: intelligent-agent-api
+
+server:
+  port: 8082
+
+logging:
+  structured:
+    format:
+      console: com.telemed.intelligentagent.observability.ContractLogFormatter
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
