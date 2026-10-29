@@ -15,6 +15,7 @@
 | HU ID | Title | Status (todo/doing/done) | Evidence (PR or commit URL) |
 |---|---|---|---|
 | HU-02 | Authentication and access: STRIDE of `/api/v1/auth`, account-lock story and negative login test | doing | [Docs PR #143](https://github.com/code-corhuila/telemed-ia-docs/pull/143), [#148](https://github.com/code-corhuila/telemed-ia-docs/pull/148), [issue #152](https://github.com/code-corhuila/telemed-ia-docs/issues/152), [commit 3276bcd](https://github.com/JulianaFerro1428/sistemas-distribuidos-2026-b-g2/commit/3276bcd) |
+| HU-02 | Per-account login lock (#152): `login_attempts` table and `429` with `Retry-After` in `auth-service` | doing (PRs in review) | [identity-db PR #59](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/59), [identity-api PR #134](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/134) |
 | HU-01 | Patient registration: account enumeration on `POST /api/v1/auth/register` | todo | [issue #153](https://github.com/code-corhuila/telemed-ia-docs/issues/153) |
 | HU-02 | Gateway global rate limit for `/api/v1/auth` | todo | [issue #154](https://github.com/code-corhuila/telemed-ia-docs/issues/154) |
 
@@ -24,23 +25,25 @@
 - Wrote the STRIDE table, risk ranking, residual risk and library references in `05-architecture/security/stride-JulianaFerro1428.md` ([#143](https://github.com/code-corhuila/telemed-ia-docs/pull/143), [#148](https://github.com/code-corhuila/telemed-ia-docs/pull/148)).
 - Opened three security stories with labels and priority on the team board: [#152](https://github.com/code-corhuila/telemed-ia-docs/issues/152) (S, P0), [#153](https://github.com/code-corhuila/telemed-ia-docs/issues/153) (I, P1), [#154](https://github.com/code-corhuila/telemed-ia-docs/issues/154) (D, P1).
 - Proposed `security.yml` (gitleaks, OWASP dependency-check, authorization tests) and the negative test `LoginAccountLockE2ETest`: [365a7df](https://github.com/JulianaFerro1428/sistemas-distribuidos-2026-b-g2/commit/365a7df).
+- Built #152 with red/green TDD commits: migration and grants for `login_attempts` ([identity-db#59](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/59)) and the lock in `LoginService`, JPA adapter and `429` handler ([identity-api#134](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/134)). `LoginAccountLockE2ETest` went from `200 OK` (red) to `429` (green).
 - Peer review of [#144](https://github.com/code-corhuila/telemed-ia-docs/pull/144): the S row misses brute force on `POST /internal/service-token` ([review](https://github.com/code-corhuila/telemed-ia-docs/pull/144#pullrequestreview-5699376616)).
 
 ## 3. Blockers and risks
 - PR #143 was merged by a teammate after the first push, so the second half of the STRIDE is in PR #148.
-- The negative test is red until the per-account lock of #152 is implemented in `identity-and-access-api`; it has not been run locally yet (CP8).
+- GitHub Actions does not start on organization PRs ("account is locked due to a billing issue"), so #59 and #134 were verified only with local runs.
+- #134 depends on #59: the database PR must be merged first. Both need a reviewer other than me.
 
 ## 4. Plan for next week
-- Answer the review on PR #148 and finish the STRIDE (CP6).
-- Run `LoginAccountLockE2ETest` locally, paste the output and validate `security.yml` with actionlint (CP8).
-- Start #152 in `identity-and-access-api` with a red/green TDD pair.
+- Get #59 and then #134 reviewed and merged into `develop`.
+- Add `security.yml` to `identity-and-access-api` once Actions runs again.
+- Start #153 (neutral answer on `/register`) and #154 (global rate limit in the gateway).
 
 ## 5. Compliance self-check
 - [x] Conventional Commits - `type(scope): summary`
 - [ ] Per-environment HU branch + PR to that environment (hu-xxx-dev -> develop, ...)
 - [x] Testable acceptance criteria
 - [x] Tests added/updated (unit / integration)
-- [ ] DDD / hexagonal boundaries respected (domain has no I/O)
+- [x] DDD / hexagonal boundaries respected (domain has no I/O)
 - [x] No secrets; config via environment variables
 
 ## 6. Evidence links

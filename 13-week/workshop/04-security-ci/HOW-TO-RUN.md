@@ -8,8 +8,8 @@ Service: `auth-service` (`telemed-ia-identity-and-access-api`, Java 21 + Spring 
 [telemed-ia-docs#152](https://github.com/code-corhuila/telemed-ia-docs/issues/152)
 (STRIDE S, risk 6), acceptance criterion 1: after 5 failed `POST /api/v1/auth/login` for the same
 email, the next attempt returns `429` with `traceId` and no `accessToken`, even with the right
-password and from another IP. Today `auth-service` has no per-account lock, so the test is expected
-to **fail** (red) until #152 is implemented; then it must pass and stay in CI.
+password and from another IP. The test was red first (CP8, below) and is green since the per-account
+lock of #152 was built in `auth-service` (CP9, below); it must stay in CI.
 
 ## Run the negative test locally
 
@@ -38,7 +38,7 @@ mvn -B -pl identity-and-access-app -am test -Dtest=LoginAccountLockE2ETest -Dsur
 
 Run on a local branch `test/hu-02-login-account-lock` created from `origin/develop` (`331779f`) of
 `telemed-ia-identity-and-access-api`, with JDK 21.0.12, Maven 3.9.16 and Docker 29.7.2. The test was
-not pushed to the API repository: it stays red until #152 is built.
+pushed to the API repository at that point, because #152 was not built yet.
 
 Console output (excerpt, unchanged lines):
 
@@ -62,7 +62,37 @@ expected: 429 TOO_MANY_REQUESTS
 Reading: the register call returned `201` and the five wrong passwords returned `401` (those
 assertions passed). Line 92 is the sixth login with the right password: `auth-service` answered
 `200 OK` with tokens instead of `429`. This is the expected red result and proves criterion 1 of
-#152 is not met today.
+#152 was not met.
+
+## CP9 · Implementation in the real service (2026-10-29)
+
+#152 was built with red/green TDD commits in two pull requests (merge the database one first):
+
+- [identity-and-access-db#59](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/59):
+  new migration `007_create_login_attempts.sql` (one row per account, keyed by the SHA-256 of the
+  normalized email) and `004_login_attempts_grants.sql` (`SELECT` for `identity_reader`,
+  `INSERT, UPDATE` for `identity_writer`, no `DELETE`).
+- [identity-and-access-api#134](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/134):
+  `LoginAttempts` (5 failures in 15 minutes lock for 1, 5, then 15 minutes), the check in
+  `LoginService` before BCrypt, the JPA adapter and `429` with `Retry-After` and `traceId` in
+  `GlobalExceptionHandler`. This test is in the PR, with one more line that checks `Retry-After: 60`.
+
+Run with `IDENTITY_DB_MIGRATIONS_DIR` pointing to identity-db `0241b20` (the commit with the new
+table) and `mvn -B verify` (excerpt, unchanged lines):
+
+```text
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.543 s -- in com.telemed.identityaccess.LoginAccountLockE2ETest
+[INFO] Tests run: 48, Failures: 0, Errors: 0, Skipped: 0
+[INFO] identity-and-access-core ........................... SUCCESS [  3.885 s]
+[INFO] identity-and-access-adapters ....................... SUCCESS [  9.883 s]
+[INFO] identity-and-access-app ............................ SUCCESS [01:13 min]
+[INFO] BUILD SUCCESS
+[INFO] Finished at: 2026-10-29T18:37:21-05:00
+```
+
+Reading: the same request that answered `200 OK` in CP8 now answers `429`. GitHub Actions did not
+start on either PR ("account is locked due to a billing issue", same on every organization PR
+since 2026-10-25), so these are local runs.
 
 ## CP8 · Workflow validation
 

@@ -91,6 +91,7 @@ class LoginAccountLockE2ETest {
 
         assertThat(sixth.getStatusCode()).isEqualTo(HttpStatus.TOO_MANY_REQUESTS);
         assertThat(sixth.getBody()).contains("traceId").doesNotContain("accessToken");
+        assertThat(sixth.getHeaders().getFirst(HttpHeaders.RETRY_AFTER)).isEqualTo("60");
     }
 
     private ResponseEntity<String> post(String url, Object body, String clientIp) {
