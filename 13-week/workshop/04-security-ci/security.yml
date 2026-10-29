@@ -1,0 +1,50 @@
+# Security gates proposed for telemed-ia-identity-and-access-api (Java 21, Maven).
+# Target path in that repository: .github/workflows/security.yml
+name: security
+
+on:
+  pull_request:
+    branches: [develop, qa, main]
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # gitleaks CLI image: gitleaks-action needs a license for organization repos.
+      - name: Secret scan (gitleaks)
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo --redact -v
+
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Dependency audit (OWASP dependency-check)
+        run: >
+          mvn -B org.owasp:dependency-check-maven:12.1.0:aggregate
+          -DfailBuildOnCVSS=7 -DnvdApiKey=${{ secrets.NVD_API_KEY }}
+
+  authorization-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      # Testcontainers uses the Docker daemon of the runner.
+      - name: Negative authorization tests (telemed-ia-docs#152)
+        run: >
+          mvn -B -pl identity-and-access-app -am test
+          -Dtest=LoginAccountLockE2ETest -Dsurefire.failIfNoSpecifiedTests=false
