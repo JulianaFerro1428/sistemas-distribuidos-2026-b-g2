@@ -11,6 +11,17 @@ email, the next attempt returns `429` with `traceId` and no `accessToken`, even 
 password and from another IP. The test was red first (CP8, below) and is green since the per-account
 lock of #152 was built in `auth-service` (CP9, below); it must stay in CI.
 
+## Why it was red first and green later
+
+| Step | Code in `auth-service` | Sixth login (right password) | Result |
+|---|---|---|---|
+| CP8 · 2026-10-29 17:48 | No per-account lock: `LoginService` only checked the password | `200 OK` with tokens | **Red**: the test proved the risk is real |
+| CP9 · 2026-10-29 18:37 | Lock built in the real service ([#59](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/59), [#134](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/134)) | `429` with `traceId` and `Retry-After: 60` | **Green**: the same test proves the risk is closed |
+
+The test did not change between the two runs (only one line was added to also check
+`Retry-After`). What changed was the service: the red run is the expected result of a negative
+test written before the fix, and the green run is the evidence that the fix works.
+
 ## Run the negative test locally
 
 Requirements: JDK 21, Maven and Docker running (Testcontainers starts `postgres:16.4-alpine`).
