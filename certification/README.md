@@ -16,7 +16,7 @@
 
 ## Study log
 
-I started the course on 2026-10-29 at 11:52 a.m. (Colombia time). I finished Chapter 4 that day at 4:14 p.m. The effective study time for Chapters 1–4 was 2 hours and 20 minutes, excluding breaks. The enrollment step took only a short time and is included with Chapter 1.
+I started the course on 2026-10-29 at 11:52 a.m. (Colombia time). I completed Chapters 1–4 that day and finished Chapter 4 at approximately 4:14 p.m. My effective study time for those chapters was 2 hours and 20 minutes, excluding breaks. Enrollment took only a short time and is recorded with Chapter 1.
 
 | Date | Hours | Chapters or labs | Evidence file |
 |---|---:|---|---|
@@ -29,9 +29,12 @@ I started the course on 2026-10-29 at 11:52 a.m. (Colombia time). I finished Cha
 | 2026-10-30 | 1.15 | Chapter 7: Cloud Security Solution Design — 1 h 9 min; screenshot at 7:44 p.m. | evidence/07-chapter-07.png |
 | 2026-10-31 | 0.70 | Chapter 8: Cloud O&M Solution Design — 42 min; completed at 10:42 a.m. | evidence/08-chapter-08.png |
 | 2026-10-31 | 0.80 | Chapter 9: Distributed Architecture Design — 48 min; completed at 4:03 p.m. | evidence/09-chapter-09.png |
-| Total | **7.88** | **7 h 53 min of effective study time (29–31 October 2026)** | |
+| 2026-11-02 | 0.70 | Chapter 10: Highly Scalable System Design — 42 min; completed at 2:52 p.m. | evidence/10-chapter-10.png |
+| 2026-11-02 | 0.75 | Chapter 11: Disaster Recovery System Design — 45 min; completed at 5:37 p.m. | evidence/11-chapter-11.png |
+| 2026-11-02 | 0.25 | Chapter 12: Automated Deployment — 15 min; completed at 6:07 p.m. | evidence/12-chapter-12.png |
+| Total | **9.58** | **9 h 35 min of effective study time (29 October–2 November 2026)** | |
 
-Daily totals: 2026-10-29 = 2 h 20 min; 2026-10-30 = 4 h 3 min; 2026-10-31 = 1 h 30 min. The timestamps are completion or screenshot times, not continuous study intervals. Additional study sessions will be added as they are completed.
+Daily totals: 2026-10-29 = 2 h 20 min; 2026-10-30 = 4 h 3 min; 2026-10-31 = 1 h 30 min; 2026-11-02 = 1 h 42 min. Completion and screenshot times are not continuous study intervals. Hours are recorded as decimal hours rounded to two decimal places. Future study sessions will be added when completed.
 
 ## Labs
 
@@ -50,9 +53,9 @@ Daily totals: 2026-10-29 = 2 h 20 min; 2026-10-30 = 4 h 3 min; 2026-10-31 = 1 h 
 
 ## Skills summary
 
-I studied architecture design methods used for Huawei Cloud solutions.
-I reviewed cloud compute, storage, and network architecture options for distributed applications.
-I explored how data caching can improve database performance.
-I studied access control and application security as part of secure cloud design.
-I learned about cloud operations and maintenance as part of system reliability.
-I explored distributed architecture design and its possible use in TeleMed IA.
+I studied methods for designing cloud architectures using Huawei Cloud services.
+I reviewed cloud compute, storage, and networking options for distributed applications.
+I learned about database caching and security controls for cloud systems.
+I explored distributed architecture and horizontal scaling for growing workloads.
+I studied disaster recovery planning using RTO and RPO objectives.
+I reviewed automated deployment and how these techniques could support TeleMed IA.
