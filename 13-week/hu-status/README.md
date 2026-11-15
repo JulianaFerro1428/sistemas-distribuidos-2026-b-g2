@@ -5,7 +5,7 @@
 # Weekly Status - Week 13
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME: Maria Juliana Ferro
+- FULL_NAME: Maria Juliana Ferro Bonilla
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
 - SPRINT_GOAL: Threat-model the public login boundary of TeleMed IA (Internet → api-gateway → auth-service on /api/v1/auth) and turn its top risks into security backlog stories and CI security gates for identity-and-access-api.

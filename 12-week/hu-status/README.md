@@ -5,7 +5,7 @@
 # Weekly Status - Week 12
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME: Maria Juliana Ferro
+- FULL_NAME: Maria Juliana Ferro Bonilla
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
 - SPRINT_GOAL: Deliver and promote TeleMed IA registration, authentication, password recovery, account administration, and AI pre-consultation workflows across API, portal, notification, database and shell repositories, with tests, observability and QA promotion.

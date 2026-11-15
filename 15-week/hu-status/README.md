@@ -5,10 +5,10 @@
 # Weekly Status - Week 15
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME: Maria Juliana Ferro
+- FULL_NAME: Maria Juliana Ferro Bonilla
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
-- SPRINT_GOAL: Close MVP 2: build the HU-05 professional onboarding saga in telemed-ia-workflow, run a full-system test from `qa` and fix every defect it found (including the teammates' services), generate the patient's consultation report automatically, promote every repository to `qa`, finish telemed-ia-docs for the final delivery and release every repository to `main` with the `v3.0.0` tag.
+- SPRINT_GOAL: Close MVP 3: build the HU-05 professional onboarding saga in telemed-ia-workflow, run a full-system test from `qa` and fix every defect it found (including the teammates' services), generate the patient's consultation report automatically, promote every repository to `qa`, finish telemed-ia-docs for the final delivery and release every repository to `main` with the `v3.0.0` tag.
 <!-- CONFIG-END -->
 
 ## 1. User stories worked this week

@@ -5,7 +5,7 @@
 # Weekly Status - Week 14
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME: Maria Juliana Ferro
+- FULL_NAME: Maria Juliana Ferro Bonilla
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
 - SPRINT_GOAL: Close my services for the MVP: run the week 11 observability (trace-aware JSON logs, metrics, spans and SLO alerts) of identity, notifications and the intelligent agent on the shared platform, finish the agent outbox relay and idempotent patient registration, verify every journey end to end through the gateway, and document all of it in telemed-ia-docs.

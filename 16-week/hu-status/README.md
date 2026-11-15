@@ -5,7 +5,7 @@
 # Weekly Status - Week 16
 
 <!-- CONFIG-START - must match your profile repo (username/username) CONFIG -->
-- FULL_NAME: Maria Juliana Ferro
+- FULL_NAME: Maria Juliana Ferro Bonilla
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
 - SPRINT_GOAL: Project defense week: present and defend TeleMed IA (release `v3.0.0` running from `main`) before the course.
