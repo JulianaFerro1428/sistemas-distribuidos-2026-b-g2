@@ -8,7 +8,7 @@
 - FULL_NAME: Maria Juliana Ferro
 - GITHUB_USER: JulianaFerro1428
 - TEAM: Telemed ai - Group 2
-- SPRINT_GOAL: Close MVP 2: build the HU-05 professional onboarding saga in telemed-ia-workflow, run a full-system test from `qa` and fix every defect it found (including the teammates' services), generate the patient's consultation report automatically, promote every repository to `qa`, finish telemed-ia-docs for the final delivery and start the release to `main`.
+- SPRINT_GOAL: Close MVP 2: build the HU-05 professional onboarding saga in telemed-ia-workflow, run a full-system test from `qa` and fix every defect it found (including the teammates' services), generate the patient's consultation report automatically, promote every repository to `qa`, finish telemed-ia-docs for the final delivery and release every repository to `main` with the `v3.0.0` tag.
 <!-- CONFIG-END -->
 
 ## 1. User stories worked this week
@@ -25,7 +25,7 @@
 | HU-03 | Password recovery: Mailpit test inbox under the `mail-test` profile, so tests never send real e-mail | done (merged into develop and promoted to qa) | [notifications-api #44](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/44), [docs #199](https://github.com/code-corhuila/telemed-ia-docs/pull/199) |
 | HU-04 | Patient profile: profile styled inside the shell | done (merged into develop and promoted to qa) | [patient-portal #11](https://github.com/code-corhuila/telemed-ia-patient-management-portal/pull/11) |
 | All | Promotion of every repository from `develop` to `qa` with `git cherry-pick -x` (three rounds, final tree equal to `develop`) | done (merged into qa) | [identity-api #145](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/145)–[#157](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/157), [notifications-api #33](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/33)–[#43](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/43), [agent-api #49](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/49)–[#56](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/56), [workflow #20](https://github.com/code-corhuila/telemed-ia-workflow/pull/20)–[#29](https://github.com/code-corhuila/telemed-ia-workflow/pull/29), [infra-postgres #36](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/36)–[#43](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/43), [front #50](https://github.com/code-corhuila/telemed-ia-front/pull/50)–[#57](https://github.com/code-corhuila/telemed-ia-front/pull/57) (full list in section 7) |
-| All | Release `2.0.0` to `main`: pilot with notifications-db (`release/2.0.0` cherry-picked from `qa`, tag `v2.0.0` after the merge) | doing (PR open, waiting for the code owner review) | [notifications-db #10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10) |
+| All | Release to `main`: pilot with notifications-db, then one release PR per repository (cherry-picked from `qa`, approved by the code owner), annotated tag `v3.0.0` on every merged `main`, and the teammates' `main` branches aligned with `qa` | done (merged into main, `develop` = `qa` = `main` verified, `v3.0.0` on every service repository) | [notifications-db #10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10), [identity-api #162](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/162), [agent-api #62](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/62), [notifications-api #47](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/47), [workflow #36](https://github.com/code-corhuila/telemed-ia-workflow/pull/36), [gateway #23](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/23), [front #65](https://github.com/code-corhuila/telemed-ia-front/pull/65), [appointment-api #39](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/39), [patient-api #35](https://github.com/code-corhuila/telemed-ia-patient-management-api/pull/35) (full list in section 7) |
 | All | Final documentation delivery: catalogs, gateway, service statuses, workflow, UX/UI, observability, incident playbook, user and admin manuals, project control, DevOps and quality | done (merged into main) | [docs #204](https://github.com/code-corhuila/telemed-ia-docs/pull/204)–[#217](https://github.com/code-corhuila/telemed-ia-docs/pull/217) |
 
 ## 2. My individual contribution
@@ -38,20 +38,19 @@
   - no API created consultations and `ConsultationCompleted` (DEC-003) existed only on paper, so appointments stayed `CONFIRMED`; both are now implemented (HU-11, HU-12, HU-14 rows above).
 - **Automatic patient report (HU-15, HU-16):** recording the attention now creates the post-summary, completes the appointment and stores the summary id; the document service builds a patient PDF with names, date, medication table and referral box, and the agent writes only the "reason for the visit" from its own pre-consultation, so the AI never rewrites the professional's clinical record (ADR-008). Verified in the browser on 2026-11-11: booking → pre-consultation with the real model → attention → appointment `COMPLETED` → PDF generated automatically.
 - **Promotion to `qa` (101 PRs):** all my repositories, the shared ones (infra-postgres, infra-mongo, gateway, front) and the teammates' repositories I fixed, in three rounds. Branches `qa-<desc>` cut from `qa`, `git cherry-pick -x` of the `develop` commits, parts of at most 400 non-test lines, and the last part of each series checked with "tree equal to `develop`". Final end-to-end run from `qa` (2026-11-11): **74 checks passed, 0 failed, 1 not applicable (HU-07)**.
-- **Release pilot to `main`:** `release/2.0.0` of notifications-db cherry-picked from `qa` with the scope, deployment and rollback in the PR body ([notifications-db #10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10)); tag `v2.0.0` goes on `main` after the merge.
+- **Release to `main` (27 PRs, 2026-11-13 to 2026-11-15):** first a pilot with notifications-db ([#10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10)), then one release PR per repository: commits cherry-picked with `-x` from `qa`, scope, deployment and rollback in the PR body, approved by the code owner. Every repository is released with the same version, so the first `2.0.0` PRs were closed and replaced by `3.0.0` ones. After the merges I checked that the trees of `develop`, `qa` and `main` were equal and created the annotated tag `v3.0.0` on the merge commit of every repository. Two teammate repositories had promoted with "merge `qa` into `main`" and kept leftover files on `main`; I fixed them with small PRs, reviewed by their owner ([appointment-api #39](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/39), [appointment-portal #36](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/36), [#37](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/37), [patient-api #34](https://github.com/code-corhuila/telemed-ia-patient-management-api/pull/34), [#35](https://github.com/code-corhuila/telemed-ia-patient-management-api/pull/35)), plus two small governance fixes found while checking the trees ([identity-api #163](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/163), [infra-mongo #18](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/18), [#19](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/19)). Full-system end-to-end run rebuilt from `main` (2026-11-15): **74 checks passed, 0 failed, 1 not applicable (HU-07)**.
 - **Documentation (33 PRs in telemed-ia-docs, decisions before code):** ADR-028 completed and accepted and the workflow decisions WF-003 to WF-006, OpenAPI contract and catalogs ([#184](https://github.com/code-corhuila/telemed-ia-docs/pull/184)–[#195](https://github.com/code-corhuila/telemed-ia-docs/pull/195)); the decisions of each fix before its code ([#196](https://github.com/code-corhuila/telemed-ia-docs/pull/196)–[#203](https://github.com/code-corhuila/telemed-ia-docs/pull/203)); and the final delivery of the whole repository: event and service catalogs, stateless NGINX gateway, final service statuses, design system and wireframes, real observability and incident playbook, user and administrator manuals, project control (risks, backlog, open questions), DevOps and quality ([#204](https://github.com/code-corhuila/telemed-ia-docs/pull/204)–[#217](https://github.com/code-corhuila/telemed-ia-docs/pull/217)).
 
 ## 3. Blockers and risks
-- GitHub Actions still does not start on organization PRs ("The job was not started because your account is locked due to a billing issue"); the release PR [notifications-db #10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10) shows its only check as failed for that reason. Every PR of the week was verified with local runs (`mvn verify`, Testcontainers, pytest, `go test`, image builds and the end-to-end runs above), cited in each PR body.
-- The release to `main` needs the approval of a code owner (`main` protection: one approval, code owner required). Until it merges, `main` of the other repositories still holds the seed.
+- GitHub Actions still does not start on organization PRs ("The job was not started because your account is locked due to a billing issue"); the release PRs show their checks as failed for that reason. Every PR of the week was verified with local runs (`mvn verify`, Testcontainers, pytest, `go test`, image builds and the end-to-end runs above), cited in each PR body.
+- Resolved: the release to `main` needed the approval of a code owner (`main` protection: one approval, code owner required); all release PRs were approved and merged on 2026-11-14 and 2026-11-15.
+- After the release, teammates merged health check changes into `develop` of four repositories (gateway, appointment, consultation, patient), so those repositories have `develop` ahead of `qa` = `main`; their promotion is left to the team.
 - The free tier of the language model answered `429` in one end-to-end run, so the agent answered `503`; a rerun passed. Risk during the final demonstration.
 - Docker Engine 29 rejects the default Docker API version of Testcontainers; the workflow tests pin `api.version=1.44` (identity-api end-to-end tests may hit the same problem).
 - Open contradictions between sources (for example the coverage floor) are recorded as open questions Q-009 to Q-016 in project control instead of being decided alone ([docs #215](https://github.com/code-corhuila/telemed-ia-docs/pull/215), [#217](https://github.com/code-corhuila/telemed-ia-docs/pull/217)).
 
 ## 4. Plan for next week
-- Merge [notifications-db #10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10), tag `v2.0.0` on `main`, and repeat `release/2.0.0` → `main` + tag for the rest of my repositories and the shared ones, one PR per repository.
-- Run the full-system end-to-end test again from `main` and attach the results to the HU issues.
-- Prepare the final presentation and defense of the MVP with the evidence of each story.
+- Week 16 is the project defense week: present and defend TeleMed IA with the `v3.0.0` release running from `main` and the evidence of each story. No new user stories are planned.
 
 ## 5. Compliance self-check
 - [x] Conventional Commits - `type(scope): summary`
@@ -63,24 +62,27 @@
 
 ## 6. Evidence links
 - Week folder: https://github.com/JulianaFerro1428/sistemas-distribuidos-2026-b-g2/tree/main/15-week
-- All my pull requests of the week: https://github.com/pulls?q=is%3Apr+author%3AJulianaFerro1428+org%3Acode-corhuila+created%3A2026-11-09..2026-11-13
+- All my pull requests of the week: https://github.com/pulls?q=is%3Apr+author%3AJulianaFerro1428+org%3Acode-corhuila+created%3A2026-11-09..2026-11-15
 - HU-05 saga recovery sweep: https://github.com/code-corhuila/telemed-ia-workflow/pull/33
 - HU-05 saga on the platform: https://github.com/code-corhuila/telemed-ia-docs/pull/188
 - HU-14 `ConsultationCompleted`: https://github.com/code-corhuila/telemed-ia-medical-consultation-api/pull/28, https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/30
 - HU-15 / HU-16 patient report: https://github.com/code-corhuila/telemed-ia-medical-consultation-api/pull/31, https://github.com/code-corhuila/telemed-ia-document-generation-api/pull/60
 - Promotion to qa (last part of the identity series): https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/157
-- Release pilot to main: https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10
-- Documentation: https://github.com/code-corhuila/telemed-ia-docs/pulls?q=is%3Apr+author%3AJulianaFerro1428+created%3A2026-11-09..2026-11-13
+- Release to main (pilot): https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10
+- Release to main (all my release PRs): https://github.com/pulls?q=is%3Apr+author%3AJulianaFerro1428+org%3Acode-corhuila+base%3Amain+created%3A2026-11-13..2026-11-15
+- Documentation: https://github.com/code-corhuila/telemed-ia-docs/pulls?q=is%3Apr+author%3AJulianaFerro1428+created%3A2026-11-09..2026-11-15
 
 ## 7. Pull requests in my microservices
-The 196 pull requests I opened from 2026-11-09 to 2026-11-13 (195 merged, 1 open) in the repositories I own
+The 222 pull requests I opened from 2026-11-09 to 2026-11-15 (217 merged, 5 closed and replaced by the `3.0.0` releases) in the repositories I own
 (identity, intelligent agent, notifications and workflow), the teammates' services I fixed, the shared repositories
 and the documentation, newest first, with the target branch and the creation date.
 
 ### Identity & Access
 
-**`telemed-ia-identity-and-access-api`** (17 PRs)
+**`telemed-ia-identity-and-access-api`** (19 PRs)
 
+- [#163](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/163) → `develop` · 2026-11-14 · docs(identity): remove trailing whitespace from governance reference
+- [#162](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/162) → `main` · 2026-11-14 · chore(release): publish identity and access API 3.0.0
 - [#161](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/161) → `qa` · 2026-11-11 · chore(qa): promote the internal account names lookup (HU-16)
 - [#160](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/160) → `develop` · 2026-11-11 · feat(identity): add GET /internal/account-names for service clients (HU-16)
 - [#159](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/159) → `qa` · 2026-11-11 · chore(qa): promote the account names lookup (HU-10)
@@ -99,12 +101,15 @@ and the documentation, newest first, with the target branch and the creation dat
 - [#146](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/146) → `qa` · 2026-11-10 · feat(identity-api): promote the bootstrap administrator to qa (2/13)
 - [#145](https://github.com/code-corhuila/telemed-ia-identity-and-access-api/pull/145) → `qa` · 2026-11-10 · feat(identity-api): promote the platform network, name claim and service tokens to qa (1/13)
 
-**`telemed-ia-identity-and-access-db`** (1 PR)
+**`telemed-ia-identity-and-access-db`** (2 PRs)
 
+- [#63](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/63) → `main` · 2026-11-14 · chore(release): publish identity and access database 3.0.0
 - [#62](https://github.com/code-corhuila/telemed-ia-identity-and-access-db/pull/62) → `qa` · 2026-11-09 · chore(db): promote the login lock and the outbox traceparent to qa
 
-**`telemed-ia-identity-and-access-portal`** (4 PRs)
+**`telemed-ia-identity-and-access-portal`** (6 PRs)
 
+- [#31](https://github.com/code-corhuila/telemed-ia-identity-and-access-portal/pull/31) → `main` · 2026-11-14 · chore(release): publish identity and access portal 3.0.0
+- [#30](https://github.com/code-corhuila/telemed-ia-identity-and-access-portal/pull/30) → `main` · 2026-11-14 · **closed, superseded by #31** · chore(release): publish identity and access portal 2.0.0
 - [#29](https://github.com/code-corhuila/telemed-ia-identity-and-access-portal/pull/29) → `qa` · 2026-11-09 · chore(identity-portal): promote the login lock message and governance to qa (part 4 of 4)
 - [#28](https://github.com/code-corhuila/telemed-ia-identity-and-access-portal/pull/28) → `qa` · 2026-11-09 · chore(identity-portal): promote blocking and restoring an account to qa (part 3 of 4)
 - [#27](https://github.com/code-corhuila/telemed-ia-identity-and-access-portal/pull/27) → `qa` · 2026-11-09 · chore(identity-portal): promote the account list to qa (part 2 of 4)
@@ -112,8 +117,10 @@ and the documentation, newest first, with the target branch and the creation dat
 
 ### Intelligent agent
 
-**`telemed-ia-intelligent-agent-api`** (12 PRs)
+**`telemed-ia-intelligent-agent-api`** (14 PRs)
 
+- [#62](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/62) → `main` · 2026-11-14 · chore(release): publish intelligent agent API 3.0.0
+- [#61](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/61) → `main` · 2026-11-14 · **closed, superseded by #62** · chore(release): publish intelligent agent API 2.0.0
 - [#60](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/60) → `qa` · 2026-11-11 · chore(qa): promote the reason for the visit for the patient PDF (HU-16)
 - [#59](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/59) → `develop` · 2026-11-11 · feat(agent): write the reason for the visit for the patient's PDF (HU-16)
 - [#58](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/58) → `qa` · 2026-11-10 · docs(agent-api): promote the professional summary access note to qa (HU-06)
@@ -127,18 +134,22 @@ and the documentation, newest first, with the target branch and the creation dat
 - [#50](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/50) → `qa` · 2026-11-09 · chore(agent-api): promote the circuit breaker and the agent-db fail-fast to qa (part 2 of 8)
 - [#49](https://github.com/code-corhuila/telemed-ia-intelligent-agent-api/pull/49) → `qa` · 2026-11-09 · chore(agent-api): promote trace, logs, SLO and pause to qa (part 1 of 8)
 
-**`telemed-ia-intelligent-agent-db`** (1 PR)
+**`telemed-ia-intelligent-agent-db`** (2 PRs)
 
+- [#24](https://github.com/code-corhuila/telemed-ia-intelligent-agent-db/pull/24) → `main` · 2026-11-14 · chore(release): publish intelligent agent database 3.0.0
 - [#23](https://github.com/code-corhuila/telemed-ia-intelligent-agent-db/pull/23) → `qa` · 2026-11-09 · feat(agent-db): promote the outbox trace context to qa
 
-**`telemed-ia-intelligent-agent-portal`** (1 PR)
+**`telemed-ia-intelligent-agent-portal`** (2 PRs)
 
+- [#49](https://github.com/code-corhuila/telemed-ia-intelligent-agent-portal/pull/49) → `main` · 2026-11-14 · chore(release): publish intelligent agent portal 3.0.0
 - [#48](https://github.com/code-corhuila/telemed-ia-intelligent-agent-portal/pull/48) → `qa` · 2026-11-09 · chore(agent-portal): promote the pause notice and the published port to qa
 
 ### Notifications
 
-**`telemed-ia-notifications-api`** (13 PRs)
+**`telemed-ia-notifications-api`** (15 PRs)
 
+- [#47](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/47) → `main` · 2026-11-14 · chore(release): publish notifications API 3.0.0
+- [#46](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/46) → `main` · 2026-11-14 · **closed, superseded by #47** · chore(release): publish notifications API 2.0.0
 - [#45](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/45) → `qa` · 2026-11-11 · chore(qa): promote the Mailpit mail-test profile (HU-03)
 - [#44](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/44) → `develop` · 2026-11-11 · build(notifications): add a Mailpit test inbox under the mail-test profile (HU-03)
 - [#43](https://github.com/code-corhuila/telemed-ia-notifications-api/pull/43) → `qa` · 2026-11-09 · chore(notifications-api): promote the week 11 metrics, spans and fail-fast to qa (part 11 of 11)
@@ -155,11 +166,13 @@ and the documentation, newest first, with the target branch and the creation dat
 
 **`telemed-ia-notifications-db`** (2 PRs)
 
-- [#10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10) → `main` · 2026-11-13 · **open** · chore(release): publish notifications database 2.0.0
+- [#10](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/10) → `main` · 2026-11-13 · chore(release): publish notifications database 2.0.0 (tagged `v3.0.0` after the merge)
 - [#9](https://github.com/code-corhuila/telemed-ia-notifications-db/pull/9) → `qa` · 2026-11-09 · feat(db): promote the notification inbox to qa
 
-**`telemed-ia-notifications-portal`** (5 PRs)
+**`telemed-ia-notifications-portal`** (7 PRs)
 
+- [#17](https://github.com/code-corhuila/telemed-ia-notifications-portal/pull/17) → `main` · 2026-11-14 · chore(release): publish notifications portal 3.0.0
+- [#16](https://github.com/code-corhuila/telemed-ia-notifications-portal/pull/16) → `main` · 2026-11-14 · **closed, superseded by #17** · chore(release): publish notifications portal 2.0.0
 - [#15](https://github.com/code-corhuila/telemed-ia-notifications-portal/pull/15) → `qa` · 2026-11-09 · chore(notifications-portal): promote the inbox states, CI and governance to qa (part 5 of 5)
 - [#14](https://github.com/code-corhuila/telemed-ia-notifications-portal/pull/14) → `qa` · 2026-11-09 · chore(notifications-portal): promote the inbox page to qa (part 4 of 5)
 - [#13](https://github.com/code-corhuila/telemed-ia-notifications-portal/pull/13) → `qa` · 2026-11-09 · chore(notifications-portal): promote the inbox texts and state to qa (part 3 of 5)
@@ -168,8 +181,10 @@ and the documentation, newest first, with the target branch and the creation dat
 
 ### Workflow (HU-05 saga)
 
-**`telemed-ia-workflow`** (30 PRs)
+**`telemed-ia-workflow`** (32 PRs)
 
+- [#36](https://github.com/code-corhuila/telemed-ia-workflow/pull/36) → `main` · 2026-11-14 · chore(release): publish workflow service 3.0.0
+- [#35](https://github.com/code-corhuila/telemed-ia-workflow/pull/35) → `main` · 2026-11-14 · **closed, superseded by #36** · chore(release): publish workflow service 2.0.0
 - [#34](https://github.com/code-corhuila/telemed-ia-workflow/pull/34) → `qa` · 2026-11-10 · feat(workflow): promote the saga recovery sweep to qa (HU-05)
 - [#33](https://github.com/code-corhuila/telemed-ia-workflow/pull/33) → `develop` · 2026-11-10 · feat(workflow): run the saga recovery sweep on a schedule (HU-05)
 - [#32](https://github.com/code-corhuila/telemed-ia-workflow/pull/32) → `develop` · 2026-11-10 · feat(workflow): undo or complete the sagas a restart left running (HU-05)
@@ -203,8 +218,9 @@ and the documentation, newest first, with the target branch and the creation dat
 
 ### Teammates' services (fixes from the full-system test)
 
-**`telemed-ia-appointment-scheduling-api`** (7 PRs)
+**`telemed-ia-appointment-scheduling-api`** (8 PRs)
 
+- [#39](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/39) → `main` · 2026-11-15 · chore(release): remove the files left on main by the 2.0 merge
 - [#36](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/36) → `qa` · 2026-11-11 · chore(qa): promote linking the pre-consultation summary (HU-06) [2/2]
 - [#35](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/35) → `qa` · 2026-11-11 · chore(qa): promote storing the post-summary id (HU-15) [1/2]
 - [#34](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/34) → `develop` · 2026-11-11 · feat(appointment): link the pre-consultation summary to its appointment (HU-06)
@@ -213,8 +229,10 @@ and the documentation, newest first, with the target branch and the creation dat
 - [#31](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/31) → `develop` · 2026-11-11 · fix(appointment): answer trailing-slash variants without redirecting
 - [#30](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-api/pull/30) → `develop` · 2026-11-11 · feat(appointment): complete the appointment when its consultation is completed (HU-14)
 
-**`telemed-ia-appointment-scheduling-portal`** (8 PRs)
+**`telemed-ia-appointment-scheduling-portal`** (10 PRs)
 
+- [#37](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/37) → `qa` · 2026-11-15 · fix(portal): promote the ci workflow and the pull request template to qa
+- [#36](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/36) → `develop` · 2026-11-15 · fix(portal): restore the ci workflow and the pull request template
 - [#34](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/34) → `qa` · 2026-11-11 · chore(qa): promote the reschedule fixes (HU-09)
 - [#33](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/33) → `develop` · 2026-11-11 · fix(appointment-portal): hide the reschedule action on cancelled appointments (HU-09)
 - [#32](https://github.com/code-corhuila/telemed-ia-appointment-scheduling-portal/pull/32) → `develop` · 2026-11-11 · fix(appointment): load the appointment to reschedule by its id (HU-09)
@@ -266,6 +284,11 @@ and the documentation, newest first, with the target branch and the creation dat
 - [#19](https://github.com/code-corhuila/telemed-ia-professional-management-portal/pull/19) → `qa` · 2026-11-11 · chore(qa): promote the professional's own profile page (HU-05)
 - [#18](https://github.com/code-corhuila/telemed-ia-professional-management-portal/pull/18) → `develop` · 2026-11-11 · feat(professional-portal): show the professional's own profile at /professionals/me
 
+**`telemed-ia-patient-management-api`** (2 PRs)
+
+- [#35](https://github.com/code-corhuila/telemed-ia-patient-management-api/pull/35) → `main` · 2026-11-15 · chore(release): remove the orphan patients list use case from main
+- [#34](https://github.com/code-corhuila/telemed-ia-patient-management-api/pull/34) → `qa` · 2026-11-15 · fix(api): promote the removal of the patients list use case to qa
+
 **`telemed-ia-patient-management-portal`** (2 PRs)
 
 - [#12](https://github.com/code-corhuila/telemed-ia-patient-management-portal/pull/12) → `qa` · 2026-11-11 · chore(qa): promote the patient profile styles (HU-04)
@@ -280,8 +303,9 @@ and the documentation, newest first, with the target branch and the creation dat
 
 ### Shared repositories
 
-**`telemed-ia-infra-postgres`** (9 PRs)
+**`telemed-ia-infra-postgres`** (10 PRs)
 
+- [#44](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/44) → `main` · 2026-11-14 · chore(release): publish PostgreSQL infrastructure 3.0.0
 - [#43](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/43) → `qa` · 2026-11-10 · feat(infra-postgres): promote the notifications SLO alerts and the workflow schema to qa (8/8)
 - [#42](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/42) → `qa` · 2026-11-10 · feat(infra-postgres): promote the agent and identity SLO alerts to qa (7/8)
 - [#41](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/41) → `qa` · 2026-11-10 · feat(infra-postgres): promote the professional management SLO alerts and dashboard to qa (6/8)
@@ -292,19 +316,24 @@ and the documentation, newest first, with the target branch and the creation dat
 - [#36](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/36) → `qa` · 2026-11-10 · feat(infra-postgres): promote the domain roles, object storage and consultation grants to qa (1/8)
 - [#35](https://github.com/code-corhuila/telemed-ia-infra-postgres/pull/35) → `develop` · 2026-11-09 · feat(postgres): add the workflow schema and roles for the saga store (HU-05)
 
-**`telemed-ia-infra-mongo`** (1 PR)
+**`telemed-ia-infra-mongo`** (4 PRs)
 
+- [#19](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/19) → `qa` · 2026-11-14 · chore(infra-mongo): promote the CODEOWNERS comment fix to qa
+- [#18](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/18) → `develop` · 2026-11-14 · chore(infra-mongo): point the CODEOWNERS comment to telemed-ia-docs
+- [#17](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/17) → `main` · 2026-11-14 · chore(release): publish MongoDB infrastructure 3.0.0
 - [#16](https://github.com/code-corhuila/telemed-ia-infra-mongo/pull/16) → `qa` · 2026-11-10 · fix(infra-mongo): promote the agent-db changeset count to qa
 
-**`telemed-ia-api-gateway`** (4 PRs)
+**`telemed-ia-api-gateway`** (5 PRs)
 
+- [#23](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/23) → `main` · 2026-11-14 · chore(release): publish API gateway 3.0.0
 - [#22](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/22) → `qa` · 2026-11-11 · chore(qa): promote the post-summary route (HU-15)
 - [#21](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/21) → `develop` · 2026-11-11 · fix(gateway): route the post-summary read to medical-consultation
 - [#20](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/20) → `qa` · 2026-11-10 · feat(gateway): promote the service routes to qa
 - [#19](https://github.com/code-corhuila/telemed-ia-api-gateway/pull/19) → `develop` · 2026-11-09 · feat(gateway): add workflow route (HU-05)
 
-**`telemed-ia-front`** (15 PRs)
+**`telemed-ia-front`** (16 PRs)
 
+- [#65](https://github.com/code-corhuila/telemed-ia-front/pull/65) → `main` · 2026-11-14 · chore(release): publish front shell 3.0.0
 - [#64](https://github.com/code-corhuila/telemed-ia-front/pull/64) → `qa` · 2026-11-11 · chore(qa): promote the shell session, greeting and navigation fixes
 - [#63](https://github.com/code-corhuila/telemed-ia-front/pull/63) → `develop` · 2026-11-11 · fix(shell): mark only Mi agenda on the professional schedule (HU-10)
 - [#62](https://github.com/code-corhuila/telemed-ia-front/pull/62) → `develop` · 2026-11-11 · feat(shell): link Mi perfil of a professional to its own profile
